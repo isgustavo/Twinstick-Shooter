@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerBehaviour : MonoBehaviour {
 
@@ -12,13 +13,30 @@ public class PlayerBehaviour : MonoBehaviour {
 	//Last movement
 	public Vector3 lastMovement = new Vector3();
 
-	
+	//Shoot
+	public Transform laser;
+	public float laserDistance = .2f;
+	public float timeBetweenFires = .3f;
+	private float timeTilNextFire = 0.0f;
+
+	public List<KeyCode> shootButton;
+
 	// Update is called once per frame
 	void Update () {
 	
-		Rotation ();
-		Movement ();
+		this.Rotation ();
+		this.Movement ();
 
+		foreach (KeyCode element in shootButton) {
+
+			if (Input.GetKey (element) && timeTilNextFire < 0) {
+				this.timeTilNextFire = timeBetweenFires;
+				this.ShootLaser ();
+				break;
+			}
+		}
+
+		this.timeTilNextFire -= Time.deltaTime;
 	}
 
 	//Rotate player to face mouse
@@ -60,6 +78,16 @@ public class PlayerBehaviour : MonoBehaviour {
 
 
 		}
+	}
 
+	private void ShootLaser() {
+
+		Vector3 laserPos = this.transform.position;
+		float rotationAngle = this.transform.localEulerAngles.z - 90;
+
+		laserPos.x += (Mathf.Cos ((rotationAngle) * Mathf.Deg2Rad) * -laserDistance);
+		laserPos.y += (Mathf.Sin ((rotationAngle) * Mathf.Deg2Rad) * -laserDistance);
+
+		Instantiate (laser, laserPos, this.transform.rotation);
 	}
 }
