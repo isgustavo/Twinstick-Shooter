@@ -15,6 +15,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
 			health -= laser.damage;
 			Destroy (theCollision.gameObject);
+			GameController controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+			controller.KilledEnemy ();
 		}
 
 		if (health <= 0) {
