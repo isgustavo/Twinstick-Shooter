@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyBehaviour : MonoBehaviour {
 
+	public Transform explosion;
 	public int health = 2;
 
 	void OnCollisionEnter2D(Collision2D theCollision) {
@@ -22,6 +23,11 @@ public class EnemyBehaviour : MonoBehaviour {
 		if (health <= 0) {
 
 			Destroy (gameObject);
+			GameObject exploder = ((Transform)Instantiate (explosion, 
+				                      this.transform.position,
+				                      this.transform.rotation)).gameObject;
+
+			Destroy (exploder, 2.0f);
 		}
 	}
 
