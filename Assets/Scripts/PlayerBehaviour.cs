@@ -21,6 +21,14 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	public List<KeyCode> shootButton;
 
+	public AudioClip shootSound;
+	private AudioSource audioSource;
+
+	void Start() {
+
+		audioSource = GetComponent<AudioSource> ();
+	}
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -89,5 +97,6 @@ public class PlayerBehaviour : MonoBehaviour {
 		laserPos.y += (Mathf.Sin ((rotationAngle) * Mathf.Deg2Rad) * -laserDistance);
 
 		Instantiate (laser, laserPos, this.transform.rotation);
+		audioSource.PlayOneShot (shootSound);
 	}
 }

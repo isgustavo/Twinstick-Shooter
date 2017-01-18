@@ -6,6 +6,8 @@ public class EnemyBehaviour : MonoBehaviour {
 	public Transform explosion;
 	public int health = 2;
 
+	public AudioClip hitSound;
+
 	void OnCollisionEnter2D(Collision2D theCollision) {
 
 		Debug.Log ("Hit" + theCollision.gameObject.name);
@@ -16,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
 			health -= laser.damage;
 			Destroy (theCollision.gameObject);
+			GetComponent<AudioSource> ().PlayOneShot (hitSound);
 			GameController controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 			controller.KilledEnemy ();
 		}
