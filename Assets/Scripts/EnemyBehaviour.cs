@@ -21,6 +21,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			GetComponent<AudioSource> ().PlayOneShot (hitSound);
 			GameController controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
 			controller.KilledEnemy ();
+			controller.IncreaseScore (10);
 		}
 
 		if (health <= 0) {

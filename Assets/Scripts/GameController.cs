@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -13,6 +14,13 @@ public class GameController : MonoBehaviour {
 	public int enemiesPerWave = 10;
 	public int currentNumberOfEnemies = 0;
 
+	[Header("User Interface")]
+	private int score = 0;
+	private int waveNumber = 0;
+
+	public Text scoreText;
+	public Text waveText;
+
 	void Start () {
 		StartCoroutine (SpawnEnemies ());
 	}
@@ -24,6 +32,8 @@ public class GameController : MonoBehaviour {
 		while (true) {
 
 			if (currentNumberOfEnemies <= 0) {
+				waveNumber += 1;
+				waveText.text = "Wave: " + waveNumber;
 
 				for (int i = 0; i < enemiesPerWave; i++) {
 
@@ -54,4 +64,13 @@ public class GameController : MonoBehaviour {
 		currentNumberOfEnemies -= 1;
 
 	}
+
+	public void IncreaseScore(int increase) {
+
+		score += increase;
+		scoreText.text = "Score: " + score;
+
+	}
+
+
 }
