@@ -32,19 +32,22 @@ public class PlayerBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		this.Rotation ();
-		this.Movement ();
+		if (!PauseMenuBehaviour.isPaused) {
+			
+			this.Rotation ();
+			this.Movement ();
 
-		foreach (KeyCode element in shootButton) {
+			foreach (KeyCode element in shootButton) {
 
-			if (Input.GetKey (element) && timeTilNextFire < 0) {
-				this.timeTilNextFire = timeBetweenFires;
-				this.ShootLaser ();
-				break;
+				if (Input.GetKey (element) && timeTilNextFire < 0) {
+					this.timeTilNextFire = timeBetweenFires;
+					this.ShootLaser ();
+					break;
+				}
 			}
-		}
 
-		this.timeTilNextFire -= Time.deltaTime;
+			this.timeTilNextFire -= Time.deltaTime;
+		}
 	}
 
 	//Rotate player to face mouse
